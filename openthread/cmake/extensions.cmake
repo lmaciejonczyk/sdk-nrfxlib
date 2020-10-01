@@ -5,7 +5,7 @@
 #
 
 # The Build the path of the library taking in nrf_security backend type,
-# OpenThread version and feature set  
+# OpenThread version and feature set
 function(openthread_calculate_lib_path ot_version lib_path)
   if(CONFIG_OPENTHREAD_NORDIC_LIBRARY_MASTER)
     set(ot_feature_set "master")
@@ -24,7 +24,7 @@ function(openthread_calculate_lib_path ot_version lib_path)
   endif()
 
   nrfxlib_calculate_lib_path(nrfxlib_path)
-  set(${lib_path} 
+  set(${lib_path}
     "${ZEPHYR_NRFXLIB_MODULE_DIR}/openthread/${nrfxlib_path}/${ot_version}/${ot_feature_set}/${nrf_security_backend}"
     PARENT_SCOPE)
 endfunction()
@@ -73,7 +73,7 @@ function(openthread_libs_configuration_write CONFIG_FILE)
     get_git_decribe(${ZEPHYR_OPENTHREAD_MODULE_DIR})
     list(INSERT OPENTHREAD_SETTINGS 0 "OpenThread_commit=${git_describe}")
   endif()
-  
+
   FILE(WRITE ${CONFIG_FILE} ${OPENTHREAD_SETTINGS})
 endfunction()
 
@@ -92,7 +92,7 @@ function(check_openthread_dependencies ot_lib_nrf_security_mbedtls_config_file)
   set(nrf_security_mbedtls_config_file "${CMAKE_CURRENT_BINARY_DIR}/../nrf_security/include/${CONFIG_MBEDTLS_CFG_FILE}")
   get_active_mbedtls_configs_from_file(${nrf_security_mbedtls_config_file} mbedtls_conf_list)
   get_active_mbedtls_configs_from_file(${ot_lib_nrf_security_mbedtls_config_file} ot_mbedtls_conf_list)
-  
+
   foreach(config_option ${ot_mbedtls_conf_list})
     if(NOT (${config_option} IN_LIST mbedtls_conf_list))
       message(WARNING

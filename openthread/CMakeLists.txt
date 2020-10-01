@@ -21,11 +21,9 @@ if(CONFIG_OPENTHREAD_SOURCES)
   set(OPENTHREAD_SYSTEM_H "${ZEPHYR_OPENTHREAD_MODULE_DIR}/../examples/platforms/openthread-system.h")
   set(NRF_SECURITY_MBEDTLS_CONFIG_FILE ${CMAKE_CURRENT_BINARY_DIR}/../nrf_security/include/${CONFIG_MBEDTLS_CFG_FILE})
 
-  find_program(ARM_NONE_EABI_STRIP "arm-none-eabi-strip")
-
-  add_custom_target(install_openthread_libraries
-    COMMAND ${CMAKE_COMMAND} -E echo "Install OpenThread libraries into: ${OPENTHREAD_DST_DIR}"
-    COMMAND ${ARM_NONE_EABI_STRIP} --strip-debug 
+  add_custom_target(strip_openthread_libraries
+    COMMAND ${CMAKE_COMMAND} -E echo "Stripping OpenThread libraries"
+    COMMAND ${CMAKE_STRIP} --strip-debug
       $<TARGET_FILE:openthread-ftd>
       $<TARGET_FILE:openthread-mtd>
       $<TARGET_FILE:openthread-radio>
@@ -34,6 +32,10 @@ if(CONFIG_OPENTHREAD_SOURCES)
       $<TARGET_FILE:openthread-ncp-ftd>
       $<TARGET_FILE:openthread-ncp-mtd>
       $<TARGET_FILE:openthread-rcp>
+  )
+
+  add_custom_target(install_openthread_libraries
+    COMMAND ${CMAKE_COMMAND} -E echo "Install OpenThread libraries into: ${OPENTHREAD_DST_DIR}"
     COMMAND ${CMAKE_COMMAND} -E make_directory "${OPENTHREAD_DST_DIR}"
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:openthread-ftd> "${OPENTHREAD_DST_DIR}"
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:openthread-mtd> "${OPENTHREAD_DST_DIR}"
