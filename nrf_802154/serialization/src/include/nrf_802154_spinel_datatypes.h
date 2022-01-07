@@ -387,6 +387,12 @@ typedef enum
     SPINEL_PROP_VENDOR_NORDIC_NRF_802154_MODULATED_CARRIER =
         SPINEL_PROP_VENDOR_NORDIC_NRF_802154__BEGIN + 53,
 
+    /**
+     * Vendor property for nrf_802154_sleep serialization.
+     */
+    SPINEL_PROP_VENDOR_NORDIC_NRF_802154_SLEEP_IF_IDLE =
+        SPINEL_PROP_VENDOR_NORDIC_NRF_802154__BEGIN + 54,
+
 } spinel_prop_vendor_key_t;
 
 /**
@@ -647,6 +653,16 @@ typedef enum
  * @brief Spinel data type description for nrf_802154_sleep result.
  */
 #define SPINEL_DATATYPE_NRF_802154_SLEEP_RET    SPINEL_DATATYPE_BOOL_S
+
+/**
+ * @brief Spinel data type description for nrf_802154_sleep_if_idle.
+ */
+#define SPINEL_DATATYPE_NRF_802154_SLEEP_IF_IDLE SPINEL_DATATYPE_NULL_S
+
+/**
+ * @brief Spinel data type description for nrf_802154_sleep_if_idle result.
+ */
+#define SPINEL_DATATYPE_NRF_802154_SLEEP_IF_IDLE_RET SPINEL_DATATYPE_UINT8_S
 
 /**
  * @brief Spinel data type description for nrf_802154_receive.

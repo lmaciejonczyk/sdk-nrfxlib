@@ -401,6 +401,35 @@ bail:
     return sleep_remote_resp;
 }
 
+nrf_802154_sleep_error_t nrf_802154_sleep_if_idle(void)
+{
+	nrf_802154_ser_err_t res;
+	nrf_802154_sleep_error_t sleep_remote_resp = NRF_802154_SLEEP_ERROR_NONE;
+
+	SERIALIZATION_ERROR_INIT(error);
+
+	NRF_802154_SPINEL_LOG_BANNER_CALLING();
+
+	nrf_802154_spinel_response_notifier_lock_before_request(
+		SPINEL_PROP_VENDOR_NORDIC_NRF_802154_SLEEP_IF_IDLE);
+
+	res = nrf_802154_spinel_send_cmd_prop_value_set(
+		SPINEL_PROP_VENDOR_NORDIC_NRF_802154_SLEEP_IF_IDLE,
+		SPINEL_DATATYPE_NRF_802154_SLEEP_IF_IDLE, NULL);
+
+	SERIALIZATION_ERROR_CHECK(res, error, bail);
+
+	res = net_generic_uint8_response_await(CONFIG_NRF_802154_SER_DEFAULT_RESPONSE_TIMEOUT,
+					       &sleep_remote_resp);
+
+	SERIALIZATION_ERROR_CHECK(res, error, bail);
+
+bail:
+	SERIALIZATION_ERROR_RAISE_IF_FAILED(error);
+
+	return sleep_remote_resp;
+}
+
 bool nrf_802154_receive(void)
 {
     nrf_802154_ser_err_t res;

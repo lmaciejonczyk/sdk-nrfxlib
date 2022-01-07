@@ -90,6 +90,14 @@ typedef uint8_t nrf_802154_cca_error_t;
 
 #define NRF_802154_CCA_ERROR_ABORTED      0x01 // !< Procedure was aborted by another operation.
 
+/**
+ * @brief Possible errors during sleep procedure call.
+ */
+typedef uint8_t nrf_802154_sleep_error_t;
+
+#define NRF_802154_SLEEP_ERROR_NONE 0x00 // !< There is no error.
+#define NRF_802154_SLEEP_ERROR_BUSY 0x01 // !< The driver cannot enter the sleep state due to the ongoing operation.
+
 /** @brief RADIO Clear Channel Assessment modes. */
 #define NRF_RADIO_CCA_MODE_ED             0x00
 #define NRF_RADIO_CCA_MODE_CARRIER        0x01
